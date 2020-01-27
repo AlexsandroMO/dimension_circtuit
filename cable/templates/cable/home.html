@@ -1,0 +1,50 @@
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<div id="div-alinha">
+    <h3>Lista de Projetos</h3>
+
+    <a id="add-link" href="{% url 'new-project' %}">
+        <button type="button" class="btn btn-success">Criar Projetos</button>
+    </a>
+    
+    {% if messages %}
+    <ul class="messages">
+       {% for message in messages %}
+            <li {% if message.tags %}class="alert alert-{{message.tags}}"{% endif %}>{{ message }}</li>
+       {% endfor %}
+    </ul>
+    {% endif %}
+
+
+    <table class="table-round-corner" cellspacing="0">
+        <tr>
+            <th>Entrar no Projeto</th>
+            <th>Nome do Projetos</th>
+            <th>Editar Projeto</th>
+            <th>Deletar Projeto</th>
+        </tr>
+        {% for item in project_name %}
+            <tr>
+                <td id="td-ajuste"><a href="tasklist/{{item.id}}"><span><i class="fas fa-database fa-2x" aria-hidden="true"></i></span></a></td>
+                <td>{{item.project}}</td>
+                <!-- <td><a href="{% url 'edit-project' item.id %}"><span><i class="fas fa-edit"></i></span></a></td> -->
+                <td id="td-ajuste"><a href="editproject/{{item.id}}"><span><i class="fas fa-edit"></i></span></a></td>
+                <!-- <td id="td-ajuste"><a href="admin/cable/project/{{item.id}}/change/"><span><i class="fas fa-edit"></i></span></a></td>-->
+                <td id="td-ajuste"><a href="deleteproject/{{item.id}}" class="delete-btn"><span><i class="fas fa-trash"></i></span></a></td>
+            </tr>
+        {% endfor %}
+        
+    </table>
+</div>
+
+<br>
+<br>
+
+
+{% endblock %}

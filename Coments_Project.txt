@@ -1,0 +1,7 @@
+Suporta Amperes
+
+1,5 mm²	15,5 ampères
+2,5 mm²	21,0 ampères
+4,0 mm²	28,0 ampères
+6,0 mm²	36,0 ampères
+10,0 mm²	50,0 ampères

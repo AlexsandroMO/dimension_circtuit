@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Editando Circuitos'{{ task.local }}'{% endblock %}
+
+{% block content %}
+
+<div class="offset-1 col-10 list-div">
+    <h3>Calcular Bitola de Cabo</h3>
+    <form method="POST">
+    {% csrf_token %}
+    <table >
+        <div>
+            <ul class="navbar-nav mr-auto">
+                <!--<li class="list-group-st-gritem lioup-item-light">-->
+                <li id="li-item">
+                Tipo de Instalação: <input type = "text" size="12" name="instal" id="input-item">
+                </li>
+                <li id="li-item">
+                Tipo de Isolação: <input type = "text" size="12" name="isola" id="input-item">
+                </li>
+                <li id="li-item">
+                    Quantidade de Polos: <input type = "text" size="12" name="polo" id="input-item">
+                </li>
+                <li id="li-item">
+                    Corrente do Circuito: <input type = "text" size="12" name="corr" id="input-item">
+                </li>
+            </ul>
+        </div>
+        <br><br>
+    </table>
+        <input type="submit" class="btn btn-success" value="Calcular">
+    </form>
+</div>
+<br>
+
+{% endblock %}
+
+<!--
+
+    <p>Tipe The CEP: <input type = "text" size="12" name = "instal" placeholder="12345678"/>&nbsp</p>
+
+
+<div class="offset-1 col-10 list-div">
+    <h3>Editando {{  task.local }}</h3>
+    <form method="POST">
+        
+        {% csrf_token %}
+        {{form|crispy}}
+        <input type="submit" class="btn btn-success" value="Editar Circuito">
+    </form>
+</div>
+<br>
+
+
+-->

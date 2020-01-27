@@ -1,0 +1,539 @@
+.container-fluid {
+    padding: 0;
+}
+
+.container-fluid .row{
+    margin: 0;
+}
+
+
+body{
+    white-space: nowrap;
+    /* overflow: visible;
+    overflow-x: scroll;
+    overflow-y: scroll; */
+
+
+    /* overflow-y: hidden; */
+
+ }
+
+
+ /* mobile phone */
+@media all and (max-width: 768px) {
+    #divContent{
+     overflow:auto; 
+    }
+}
+
+/* Navbar */
+ .navbar {
+    border-bottom: 1px solid #333;
+    margin-bottom: 20px;
+   /* height: 80px;*/
+    
+}
+
+.navbar-nav {
+    margin: auto;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+.navbar-light .navbar-nav a.nav-link{
+    color: #333;
+    letter-spacing: 1px;
+}
+
+#div-alinha{
+    padding-left: 20px;
+    padding-right: 40px;
+}
+
+h3{
+    padding-top: 6px;
+    padding-bottom: 20px;
+    margin-left: 20px;
+}
+
+
+/*botão adicionar*/
+
+#add-link{
+    text-decoration: none;
+    
+}
+
+#alinha-bt{
+    display: inline-block;
+    cursor: pointer;
+    color: #FFF;
+    padding: 6px;
+    border-radius: 5px;
+    margin-right: 10px;
+    position: relative;
+    top: -3px;
+}
+
+#bt{
+    position: absolute;
+    top: 140px;
+    left: 20px;
+}
+
+.add-div{
+    background-color: #347;
+    cursor: pointer;
+    display: inline-block;
+    color: #FFF;
+    padding: 8px;
+    border-radius: 5px;
+    margin-right: 25px;
+}
+
+/* FAS */
+.fas.fa-plus{
+    color: #fff;
+    margin-right: 20px;
+    margin-left: 5px;
+}
+
+.fas.fa-database{
+    color: 	#008B8B;
+    margin-right: 20px;
+    margin-left: 5px;
+
+}
+
+
+
+/* Search */
+.fas.fa-search{
+    position: absolute;
+    top: 12px;
+    right: 26px;
+    cursor: pointer;
+}
+
+.search-div{
+    padding: 0px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: inline-block;
+    position: relative;
+    top: -10px;
+    
+}
+
+
+#search{
+    padding: 0px;
+    height: 30px;
+    width: 200px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: inline-block;
+    position: absolute;
+    top: 0px;
+    right: 130px;
+
+}
+
+#search-btn{
+    padding: 0px;
+    height: 30px;
+    width: 100px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: inline-block;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+}
+
+/* Filetr */
+.filter-div{
+    margin-bottom: 15px;
+    padding: 0;
+    position: relative;
+    top: -30px;
+    right: -80px;
+}
+
+#filtery{
+    display: inline-block;
+    width: 200px;
+    margin-left: 10px;
+}
+
+
+/* .form-control{
+    position: absolute;
+    top: -7px;
+    left: 30px;
+    display: inline-block;
+} */
+
+
+/*lista de tarefas*/
+.list-div {
+    padding: 0;
+}
+
+.task-list {
+    padding: 0;
+}
+
+.task-item {
+    list-style: none;
+    font-size: 20px;
+    height: 50px;
+    padding: 0 15px;
+    padding-top: 10px;
+    border-bottom: 1px dashed #ccc;
+    border-radius: 10px;
+}
+
+.task-item.done{
+    background-color: #ccc;
+    border: 1px solid #778899;
+}
+
+.fas.fa-trash, .fas.fa-edit, .fas.fa-check, .fas.fa-angle-double-right{
+    cursor: pointer;
+    margin: 5px;
+    font-size: 20px; 
+}
+
+
+.fas.fa-trash {
+    color: #db1e47;
+}
+
+.fas.fa-edit {
+    color: #13c43f;
+}
+
+.fas.fa-check {
+    color: #ccc;
+}
+
+.done .fas.fa-check {
+    color: #3476e2;
+}
+
+#name-task {
+    color: #696969;
+}
+
+
+/* Rodapé*/
+footer {
+    background-color: #333;
+    height: 130px;
+    border-top: 2px solid #202020;
+}
+
+footer p {
+    color: #f5f5f5;
+    text-align: center;
+    top: 40%;
+    position: relative;
+}
+
+/* Messages */
+ul.messages{
+    padding: 0;
+}
+
+ul.messages li{
+    list-style: none;
+}
+
+/* Paginação */
+
+.pagination{
+    margin-bottom: 20px;
+}
+
+.step-links{
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.step-links .current{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+/* Login*/
+.auth-card{
+    margin-bottom: 30px;
+}
+
+
+/*----------------------------------*/
+.row{
+    padding-left: 20px;
+    padding-right: 10px;
+    max-width: 100%;
+}
+
+#ajusta-tabela{
+    max-width: 100%;
+    overflow: scroll
+}
+
+.scrollable-content {
+    overflow-x:hidden;
+    overflow-y:scroll;
+  }
+
+#ajusta-tabela::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: transparent;
+    opacity: .8;
+
+}
+
+#ajusta-tabela::-webkit-scrollbar {
+    width: 6px;
+    background-color: transparent;
+    opacity: .6; 
+}
+
+#ajusta-tabela::-webkit-scrollbar-thumb {
+    background-color: #DCDCDC;
+    opacity: .8; 
+}
+
+.table-round-corner {
+    margin-top: 50px;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+    border-collapse: separate;
+    border: solid #ccc 1px;
+    -webkit-border-radius: 10px;
+       -moz-border-radius: 10px;
+            border-radius: 10px;
+}
+
+/**Cor quando passar por cima**/
+.table-round-corner tr:hover td{
+    background-color: #B0E0E6;
+    margin-right: 20px;
+}
+  
+/**Cor quando selecionado**/
+.table-round-corner tr.selecionado td{
+    background-color: #CD853F;
+    margin-right: 20px;
+}
+
+table td {
+    color: #aaa;
+    background-color: white;
+    font-weight: normal;
+    text-align: center;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+}
+
+table th{
+    color: white;
+    background-color: #708090;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    padding: 5px;
+    font-size: 16px;
+    border: solid #ccc 1px;
+}
+
+#div_id_instalation{
+    float: right;
+}
+
+#div_id_isolation{
+    float: right;
+}
+
+#div_id_number_polos{
+    float: right;
+}
+
+#div_id_number_polos{
+    float: right;
+}
+
+#div_id_corrente_ckt{
+    float: right;
+}
+
+#div_id_tension{
+    float: right;
+}
+
+#alinha-itens{
+    float: left;
+    margin: 5px;
+}
+
+#bt-alinha{
+    float: right;
+    margin: 5px;
+}
+
+#result{
+    margin-top: 35px;
+}
+
+h5{
+    position: relative;
+    top: 3px;
+}
+
+
+
+/* --- Alinha Calc -- */
+/* #td-ajuste{
+    width: 150px;
+}
+
+#th-color{
+    background-color: #808080;
+}
+
+#li-item{
+    padding: 10px;
+
+}
+*/
+
+/*
+#alinha-div-row{
+    position: relative;
+    top: 20px;
+    left: 10px;
+    float: left;
+}
+
+
+#alinha-itens{
+    position: relative;
+    top: 60px;
+    left: -395px;
+}
+
+#bt-alinha{
+    position: relative;
+    top: -50px;
+    left: 665px;
+}
+
+#bt2-alinha{
+    text-align: center;
+    width: 80px;
+    height: 40px;
+    position: relative;
+    top: 10px;
+    left: -330px;
+}
+
+*/
+
+
+/* #result{
+    float: right;
+    /* position: relative;
+    top: 150px;
+    right: 1100px; */
+
+
+
+
+
+/* 
+#id_instalation{
+    float: right;
+    padding-right: 5px; 
+}
+#id_isolation{
+    width: 15%;
+    position: absolute;
+    left: 200px;
+}
+#id_number_polos{
+    width: 15%;
+    position: absolute;
+    left: 200px;
+}
+#id_corrente_ckt{
+    width: 15%;
+    position: absolute;
+    left: 200px;
+} */
+
+
+/*
+#div_id_instalation{
+    position: relative;
+    left: 20px;
+    float: right;
+}
+#div_id_isolation{
+    position: relative;
+    left: 20px;
+    float: right;
+}
+#div_id_number_polos{
+    position: relative;
+    left: 20px;
+    float: right;
+}
+#div_id_corrente_ckt{
+    position: relative;
+    left: 20px;
+    float: right;
+}
+#div_id_tension{
+    position: relative;
+    left: 20px;
+    float: right;
+}
+
+*/
+
+
+
+
+
+
+
+/* 
+::-webkit-scrollbar-track-piece:start {
+    background: transparent url('images/backgrounds/scrollbar.png') repeat-y !important;
+}
+
+::-webkit-scrollbar-track-piece:end {
+    background: transparent url('images/backgrounds/scrollbar.png') repeat-y !important;
+}
+
+.scrollable-content {
+    overflow-x:hidden;
+    overflow-y:scroll; // manage scrollbar content overflow settings
+  }
+  .scrollable-content::-webkit-scrollbar {
+    width:30px; // manage scrollbar width here
+  }
+  .scrollable-content::-webkit-scrollbar * {
+    background:transparent; // manage scrollbar background color here
+  }
+  .scrollable-content::-webkit-scrollbar-thumb {
+    background:rgba(255,0,0,0.1) !important; // manage scrollbar thumb background color here
+  } */

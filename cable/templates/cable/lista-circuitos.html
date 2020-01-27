@@ -1,0 +1,83 @@
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Adicionar Contas{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    {% for item in task %}
+    <h3>Tabela de Circuitos - {{item.r_project}}</h3>
+    {% endfor %}
+
+    <div id="bt">
+        <a id="add-link" href="{% url 'new-task' %}">
+            <!-- <button type="button" class="btn btn-primary" id="alinha-bt"><i class="fas fa-plus">&nbsp <h5>Adicionar Circuito</h5></i></button> -->
+        <div id="div-bt">
+            <button type="button" class="btn btn-outline-secondary"><h5>Adicionar Circuito</h5></button>
+        </div>
+        </a>
+
+    </div>
+
+    {% if messages %}
+    <ul class="messages">
+       {% for message in messages %}
+            <li {% if message.tags %}class="alert alert-{{message.tags}}"{% endif %}>{{ message }}</li>
+       {% endfor %}
+    </ul>
+    {% endif %}
+    
+    <div id="ajusta-tabela">
+        <br>
+        <table class="table-round-corner" cellspacing="0">
+            <tr>
+                <th id="th-color">&nbsp &nbsp<a id="add-link" href="{% url 'new-task' %}"><i class="fas fa-plus"></i></a></th>
+                <th>LOCAL</th>
+                <th>TIPO</th>
+                <th>TENSÃO (VA)</th>
+                <th>QUANT.</th>
+                <th>POTÊNCIA (VA)</th>
+                <th>TOTAL (VA)</th>
+                <th>CORRENTE (VA)</th>
+                <th>COMP. CKT</th>
+                <TH>SEÇÃO CONDUTOR</TH>
+                <th>QUEDA TENSÃO PERMITIDA(%)</th>
+                <th>N DE POLOS</th>
+                <th>CORRENTE NOMINAL</th>
+                <th>DJ Usual</th>
+                <th></th>
+                
+            </tr>
+            {% for item in task %}
+                <tr>
+                    <td><a href="{% url 'edit-task' item.id %}"><span><i class="fas fa-edit"></i></span></a></td>
+                    <td>{{item.r_local}}</td>
+                    <td>{{item.r_type_circuit}}</td>
+                    <td>{{item.r_tension}}</td>
+                    <td>{{item.r_numbers_points}}</td>
+                    <td>{{item.r_power_va}}</td>
+                    <td>{{item.r_total_power_va}}</td>
+                    <td>{{item.r_current_a}}</td>
+                    <td>{{item.r_circuit_length}}</td>
+                    <td>{{item.r_conductor_session}}</td>
+                    <td>{{item.r_volt_drop_allow}}</td>
+                    <td>{{item.r_numero_polos}}</td>
+                    <td>{{item.r_nominal_chain}}</td>
+                    <td>{{item.r_appl_circ_break}}</td>
+                    <td><a href="{% url 'delete-task' item.id  %}" class="delete-btn"><span><i class="fas fa-trash"></i></span></a></td>
+                    
+                </tr>
+            {% endfor %}
+            
+        </table>
+        <br>
+    </div>
+</div>
+
+<br>
+<br>
+
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Calcular Cabo{% endblock %}
+
+{% block content %}
+
+<h3>Calcular Bitola de Cabo</h3>
+<div class="row" id="alinha-div-row">
+    <div id="alinha-itens">
+        <form method="POST" id="alinha-form">
+            {% csrf_token %}
+            {{form|crispy}}
+            <br>
+            <input type="submit" class="btn btn-success" value="Calcular" id="bt-alinha">
+        </form>
+        <br>
+        <br>
+        <a href="{% url 'new-calc' %}"><button type="button" class="btn btn-outline-secondary" id="bt-alinha">Limpar</button></a>
+        <h5 id="result">Bitola do Cabo: &nbsp; {{texto_result}}</h5>
+    </div>
+
+</div>
+</div>
+
+
+
+{% endblock %}
