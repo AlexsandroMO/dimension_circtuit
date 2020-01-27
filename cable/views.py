@@ -34,6 +34,8 @@ def taskList(request, id):
 @login_required
 def newTask(request):
 
+    project_name = RProject.objects.all()
+
     if request.method == 'POST':
         form = ResidencDimensForm(request.POST)
 
@@ -42,70 +44,38 @@ def newTask(request):
         if form.is_valid():
 
             task = form.save(commit=False)
-            task.total_va = (task.potencia_va * task.quant)
+
+            #---------------------------------------------
+            #Potência total do ckt
+            task.r_total_power_va = (task.r_numbers_points * task.r_power_va)
             #--------------------------------------------------
-            #Dimensiona total de VA
-            t_va = str(task.tensa_va)
-            #print('\n\n',type(t_va),'\n\n')
-            #t_va = float(task.total_va)
-            task.corrente_a = round((float(task.total_va) / int(t_va)),3)
-        
+            #Corrente total do circuito
+            tension = str(task.r_tension)
+            task.r_current_a = round(task.r_total_power_va / int(tension),2)
             #--------------------------------------------------
-            #Calcula bitola do cabo
-            #cable = main.table_tens(float(task.total_va), task.tensa_va)
-            cable = main.calc_cable(str(task.comprimento), task.corrente_a)
-            task.sessao_condutor = cable
-
-            print(task.sessao_condutor)
+            #Bitola do cabo
+            cable = main.calc_cable(str(task.r_circuit_length), task.r_current_a )
+            task.r_conductor_session = cable
             #--------------------------------------------------
-            #Verifica capaciadde de Corrente
-            corr = task.sessao_condutor
-            test = main.read_sql_corr(corr)
-
-            corrente = test['capacidade_conducao'][0]
-
-            if corrente > float(task.corrente_a):
-                task.capacidade_corrente = 'OK'
-            else:
-                task.capacidade_corrente = 'NÀO'
-
+            #Corrente nomenal do ckt
+            disj = main.table_disj(task.r_total_power_va, task.r_tension)
+            task.r_nominal_chain = disj
             #--------------------------------------------------
-            #Dimensiona Disjuntos
-            disj = main.table_disj(float(task.total_va), task.tensa_va)
-            task.corrente_nominal = disj
+            #Dimensiona Disjuntores
+            #dj = task.r_nominal_chain #cor_nom
+            #test = main.read_sql_dj(int(dj))
+            djj = main.table_disj(task.r_total_power_va, int(tension)) #read_sql_dj(int(dj))
 
-            cor_nom = int(task.corrente_nominal)
-            #--------------------------------------------------
-            dj = cor_nom
-            test = main.read_sql_dj(dj)
-            djj = int(test['dj'][0])
-
-            if djj > (float(task.corrente_a) * 1.1):
-                task.verifica_dj = 'OK'
-            else:
-                task.verifica_dj = 'NÀO'
-
-            #--------------------------------------------------
-            id_x = task.projeto
-            test = main.read_sql_filter_id(id_x)
-            id_project = int(test['id'][0])
-            #---------------------------------------------------
-            #Verifica Queda de tensão
-            queda = task.sessao_condutor
-            test = main.read_sql_queda(queda)
-            queda_tensao = test['queda_tesao'][0]
-
-            calc = ((((float(queda_tensao) * float(task.corrente_a)) * float(task.comprimento)) / (1000) / int(t_va)))
-
-            task.queda_tensao_ckt = calc * 100
-            
-            if (float(task.queda_tensao_perm) / 100)< task.queda_tensao_ckt:
-                task.queda_tensao_test = 'OK'
-            else:
-                task.queda_tensao_test = 'NÃO'
+            task.r_appl_circ_break = djj
             #--------------------------------------------------
 
             task.save()
+
+            #--------------------------------------------------
+            id_x = task.r_project
+            test = main.read_sql_filter_id(id_x)
+            id_project = int(test['id'][0])
+            #---------------------------------------------------
 
             link = '/tasklist'
 
@@ -114,7 +84,7 @@ def newTask(request):
 
     else:
         form = ResidencDimensForm()
-        return render(request, 'cable/add-task.html', {'form': form})
+        return render(request, 'cable/add-task.html', {'form': form, 'project_name': project_name})
 
 
 @login_required
@@ -129,71 +99,37 @@ def editTask(request, id):
 
         if form.is_valid():
 
-            task = form.save(commit=False)
-            task.total_va = (task.potencia_va * task.quant)
+                        #---------------------------------------------
+            #Potência total do ckt
+            task.r_total_power_va = (task.r_numbers_points * task.r_power_va)
             #--------------------------------------------------
-            #Dimensiona total de VA
-            t_va = str(task.tensa_va)
-            #print('\n\n',type(t_va),'\n\n')
-            #t_va = float(task.total_va)
-            task.corrente_a = round((float(task.total_va) / int(t_va)),3)
-        
+            #Corrente total do circuito
+            tension = str(task.r_tension)
+            task.r_current_a = round(task.r_total_power_va / int(tension),2)
             #--------------------------------------------------
-            #Calcula bitola do cabo
-            #cable = main.table_tens(float(task.total_va), task.tensa_va)
-            cable = main.calc_cable(str(task.comprimento), task.corrente_a)
-            task.sessao_condutor = cable
-
-            print(task.sessao_condutor)
+            #Bitola do cabo
+            cable = main.calc_cable(str(task.r_circuit_length), task.r_current_a )
+            task.r_conductor_session = cable
             #--------------------------------------------------
-            #Verifica capaciadde de Corrente
-            corr = task.sessao_condutor
-            test = main.read_sql_corr(corr)
-
-            corrente = test['capacidade_conducao'][0]
-
-            if corrente > float(task.corrente_a):
-                task.capacidade_corrente = 'OK'
-            else:
-                task.capacidade_corrente = 'NÀO'
-
+            #Corrente nomenal do ckt
+            disj = main.table_disj(task.r_total_power_va, task.r_tension)
+            task.r_nominal_chain = disj
             #--------------------------------------------------
-            #Dimensiona Disjuntos
-            disj = main.table_disj(float(task.total_va), task.tensa_va)
-            task.corrente_nominal = disj
+            #Dimensiona Disjuntores
+            #dj = task.r_nominal_chain #cor_nom
+            #test = main.read_sql_dj(int(dj))
+            djj = main.table_disj(task.r_total_power_va, int(tension)) #read_sql_dj(int(dj))
 
-            cor_nom = int(task.corrente_nominal)
-            #--------------------------------------------------
-            dj = cor_nom
-            test = main.read_sql_dj(dj)
-            djj = int(test['dj'][0])
-
-            if djj > (float(task.corrente_a) * 1.1):
-                task.verifica_dj = 'OK'
-            else:
-                task.verifica_dj = 'NÀO'
-
-            #--------------------------------------------------
-            id_x = task.projeto
-            test = main.read_sql_filter_id(id_x)
-            id_project = int(test['id'][0])
-            #---------------------------------------------------
-            #Verifica Queda de tensão
-            queda = task.sessao_condutor
-            test = main.read_sql_queda(queda)
-            queda_tensao = test['queda_tesao'][0]
-
-            calc = ((((float(queda_tensao) * float(task.corrente_a)) * float(task.comprimento)) / (1000) / int(t_va)))
-
-            task.queda_tensao_ckt = calc * 100
-            
-            if (float(task.queda_tensao_perm) / 100)< task.queda_tensao_ckt:
-                task.queda_tensao_test = 'OK'
-            else:
-                task.queda_tensao_test = 'NÃO'
+            task.r_appl_circ_break = djj
             #--------------------------------------------------
 
             task.save()
+
+            #--------------------------------------------------
+            id_x = task.r_project
+            test = main.read_sql_filter_id(id_x)
+            id_project = int(test['id'][0])
+            #---------------------------------------------------
 
             link = '/tasklist'
 

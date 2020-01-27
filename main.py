@@ -32,6 +32,7 @@ def read_sql_corr(corr):
 
 
 def read_sql_dj(dj):
+
 	conn = sqlite3.connect('db.sqlite3')
 	sql_datas = f"""
 				SELECT dj FROM cable_disjuntor
@@ -60,8 +61,8 @@ def read_sql_filter(projeto):
 def read_sql_filter_id(id_x):
 	conn = sqlite3.connect('db.sqlite3')
 	sql_datas = f"""
-				SELECT id FROM cable_project
-        WHERE project like '{id_x}';
+				SELECT id FROM cable_rproject
+        WHERE r_project like '{id_x}';
 
 	"""
 
@@ -126,7 +127,7 @@ def table_calc(corrent, tension):
 
 	return new_table
 
-
+'''
 def table_tens(p_va, tension):
 
 	tens = ['1.5','2.5','4','6','10','16','25','35','50','70','95','120','150','185','240','300']
@@ -157,7 +158,7 @@ def table_tens(p_va, tension):
 	for a in new_table['Cable']:
 		return a
 		#new.append(a)
-
+'''
 
 def table_tens(p_va, tension):
 
@@ -204,8 +205,6 @@ def table_disj(power, tens):
 	table = pd.DataFrame(data=new,columns=['Corrente','DJ'])
 	
 	xx = str(tens)
-
-	
 
 	result = power / int(xx)
 	res = round(result + 0.5)
