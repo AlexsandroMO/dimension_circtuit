@@ -40,7 +40,7 @@ class ResidencDimens(models.Model):
     r_conductor_session = models.CharField(verbose_name='Sessão Transversal do Condutor (mm²)', max_length=4, blank=True)
     r_volt_drop_allow = models.FloatField(verbose_name='Queda de Tensão Permitida (%)')
     r_numero_polos = models.IntegerField(verbose_name='Número de Polos')
-    r_nominal_chain = models.IntegerField(verbose_name='Corrente Nominal', blank=True)
+    r_nominal_chain = models.FloatField(verbose_name='Corrente Nominal', blank=True)
     r_appl_circ_break = models.CharField(verbose_name='Verifica Disjuntor', max_length=3, blank=True)
     r_create_circuit = models.DateTimeField(auto_now_add=True)
     r_update_circuit = models.DateTimeField(auto_now=True)

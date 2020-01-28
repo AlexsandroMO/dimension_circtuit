@@ -54,21 +54,19 @@ def newTask(request):
             task.r_current_a = round(task.r_total_power_va / int(tension),2)
             #--------------------------------------------------
             #Bitola do cabo
-            cable = main.calc_cable(str(task.r_circuit_length), task.r_current_a )
+            cable = main.calc_cable(str(task.r_circuit_length), task.r_current_a)
             task.r_conductor_session = cable
             #--------------------------------------------------
             #Corrente nomenal do ckt
-            disj = main.table_disj(task.r_total_power_va, task.r_tension)
+            disj = main.table_tens(task.r_total_power_va, task.r_tension)
             task.r_nominal_chain = disj
+
             #--------------------------------------------------
             #Dimensiona Disjuntores
-            #dj = task.r_nominal_chain #cor_nom
-            #test = main.read_sql_dj(int(dj))
-            djj = main.table_disj(task.r_total_power_va, int(tension)) #read_sql_dj(int(dj))
-
+            djj = main.table_disj(task.r_total_power_va, int(tension))
             task.r_appl_circ_break = djj
             #--------------------------------------------------
-
+            
             task.save()
 
             #--------------------------------------------------
@@ -99,7 +97,7 @@ def editTask(request, id):
 
         if form.is_valid():
 
-                        #---------------------------------------------
+            #---------------------------------------------
             #Potência total do ckt
             task.r_total_power_va = (task.r_numbers_points * task.r_power_va)
             #--------------------------------------------------
@@ -108,18 +106,16 @@ def editTask(request, id):
             task.r_current_a = round(task.r_total_power_va / int(tension),2)
             #--------------------------------------------------
             #Bitola do cabo
-            cable = main.calc_cable(str(task.r_circuit_length), task.r_current_a )
+            cable = main.calc_cable(str(task.r_circuit_length), task.r_current_a)
             task.r_conductor_session = cable
             #--------------------------------------------------
             #Corrente nomenal do ckt
-            disj = main.table_disj(task.r_total_power_va, task.r_tension)
+            disj = main.table_tens(task.r_total_power_va, task.r_tension)
             task.r_nominal_chain = disj
+
             #--------------------------------------------------
             #Dimensiona Disjuntores
-            #dj = task.r_nominal_chain #cor_nom
-            #test = main.read_sql_dj(int(dj))
-            djj = main.table_disj(task.r_total_power_va, int(tension)) #read_sql_dj(int(dj))
-
+            djj = main.table_disj(task.r_total_power_va, int(tension))
             task.r_appl_circ_break = djj
             #--------------------------------------------------
 
