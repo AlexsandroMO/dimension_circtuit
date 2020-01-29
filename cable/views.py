@@ -45,31 +45,28 @@ def newTask(request):
 
             task = form.save(commit=False)
 
-                        #---------------------------------------------
+            #---------------------------------------------
             #Potência total do ckt
             task.r_total_power_va = (task.r_numbers_points * task.r_power_va)
-            print('------------------------------>',task.r_total_power_va)
             #--------------------------------------------------
+
+            task.r_nominal_chain = 0
             #Corrente total do circuito
             tension = str(task.r_tension)
-            task.r_current_a = round(task.r_total_power_va / int(tension),2)
-            print('------------------------------>',task.r_current_a)
+            task.r_current_a = task.r_total_power_va / (int(tension) - ((int(tension) * task.r_nominal_chain) / 100))
             #--------------------------------------------------
             #Bitola do cabo
             cable = main.calc_cable(str(task.r_circuit_length), task.r_current_a)
             task.r_conductor_session = cable
-            print('------------------------------>',task.r_conductor_session)
             #--------------------------------------------------
             #Corrente nomenal do ckt
             disj = main.table_tens(task.r_total_power_va, task.r_tension)
             task.r_nominal_chain = disj
-            print('------------------------------>',task.r_nominal_chain)
             #--------------------------------------------------
             #Dimensiona Disjuntores
             djj = main.table_disj(task.r_total_power_va, int(tension))
             task.r_appl_circ_break = djj
             #--------------------------------------------------
-            print('------------------------------>',task.r_appl_circ_break)
 
             task.save()
 
@@ -103,28 +100,23 @@ def editTask(request, id):
             #---------------------------------------------
             #Potência total do ckt
             task.r_total_power_va = (task.r_numbers_points * task.r_power_va)
-            print('------------------------------>',task.r_total_power_va)
             #--------------------------------------------------
             #Corrente total do circuito
             tension = str(task.r_tension)
             task.r_current_a = round(task.r_total_power_va / int(tension),2)
-            print('------------------------------>',task.r_current_a)
             #--------------------------------------------------
             #Bitola do cabo
-            cable = main.calc_cable(str(task.r_circuit_length), task.r_current_a)
+            cable = main.calc_cable(str(task.r_circuit_length), task.r_current_a, task.r_tension)
             task.r_conductor_session = cable
-            print('------------------------------>',task.r_conductor_session)
             #--------------------------------------------------
             #Corrente nomenal do ckt
             disj = main.table_tens(task.r_total_power_va, task.r_tension)
             task.r_nominal_chain = disj
-            print('------------------------------>',task.r_nominal_chain)
             #--------------------------------------------------
             #Dimensiona Disjuntores
             djj = main.table_disj(task.r_total_power_va, int(tension))
             task.r_appl_circ_break = djj
             #--------------------------------------------------
-            print('------------------------------>',task.r_appl_circ_break)
             task.save()
 
             #--------------------------------------------------
@@ -154,7 +146,7 @@ def deleteTask(request, id):
     messages.info(request, 'Tarefa deletada com sucesso.')
 
     #--------------------------------------------------
-    id_x = task.projeto
+    id_x = task.r_project
     test = main.read_sql_filter_id(id_x)
     id_project = int(test['id'][0])
     #--------------------------------------------------

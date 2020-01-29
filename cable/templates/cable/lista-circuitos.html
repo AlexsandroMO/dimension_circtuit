@@ -7,9 +7,8 @@
 {% block content %}
 
 <div class="row">
-    {% for item in task %}
-    <h3>Tabela de Circuitos - {{item.r_project}}</h3>
-    {% endfor %}
+
+    <h3>Tabela de Circuitos - {{project_name.0}}</h3>
 
     <div id="bt">
         <a id="add-link" href="{% url 'new-task' %}">
