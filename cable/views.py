@@ -50,13 +50,13 @@ def newTask(request):
             task.r_total_power_va = (task.r_numbers_points * task.r_power_va)
             #--------------------------------------------------
 
-            task.r_nominal_chain = 0
+            #task.r_nominal_chain = 0
             #Corrente total do circuito
             tension = str(task.r_tension)
-            task.r_current_a = task.r_total_power_va / (int(tension) - ((int(tension) * task.r_nominal_chain) / 100))
+            task.r_current_a = round(task.r_total_power_va / (int(tension) - ((int(tension) * task.r_volt_drop_allow) / 100)),2)
             #--------------------------------------------------
             #Bitola do cabo
-            cable = main.calc_cable(str(task.r_circuit_length), task.r_current_a)
+            cable = main.calc_cable(str(task.r_circuit_length), task.r_current_a, task.r_tension)
             task.r_conductor_session = cable
             #--------------------------------------------------
             #Corrente nomenal do ckt
@@ -103,7 +103,8 @@ def editTask(request, id):
             #--------------------------------------------------
             #Corrente total do circuito
             tension = str(task.r_tension)
-            task.r_current_a = round(task.r_total_power_va / int(tension),2)
+            #task.r_current_a = round(task.r_total_power_va / int(tension),2)
+            task.r_current_a = round(task.r_total_power_va / (int(tension) - ((int(tension) * task.r_volt_drop_allow) / 100)),2)
             #--------------------------------------------------
             #Bitola do cabo
             cable = main.calc_cable(str(task.r_circuit_length), task.r_current_a, task.r_tension)
