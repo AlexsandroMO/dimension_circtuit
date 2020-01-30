@@ -28,7 +28,7 @@ def taskList(request, id):
     task = ResidencDimens.objects.filter(r_project_id=read_project).order_by('-r_local')
     project_name = RProject.objects.all()
 
-    return render(request, 'cable/lista-circuitos.html', {'task': task, 'project_name': project_name})
+    return render(request, 'cable/lista-circuitos.html', {'task': task, 'project_name': project_name,'read_project': read_project})
 
 
 @login_required
@@ -93,6 +93,7 @@ def editTask(request, id):
     form = ResidencDimensForm(instance=task)
     project_name = RProject.objects.all()
 
+    
     if request.method == 'POST':
         form = ResidencDimensForm(request.POST, instance=task)
 

@@ -357,26 +357,32 @@ table th{
 
 #div_id_instalation{
     float: right;
+    margin: 5px;
 }
 
 #div_id_isolation{
     float: right;
+    margin: 5px;
 }
 
 #div_id_number_polos{
     float: right;
+    margin: 5px;
 }
 
 #div_id_number_polos{
     float: right;
+    margin: 5px;
 }
 
 #div_id_corrente_ckt{
     float: right;
+    margin: 5px;
 }
 
 #div_id_tension{
     float: right;
+    margin: 5px;
 }
 
 #alinha-itens{
@@ -398,6 +404,21 @@ h5{
     top: 3px;
 }
 
+
+
+#mostrar{
+  display: none;
+}
+
+#passar_mouse:hover #mostrar{
+	font-size: 15px;
+	color: rgb(209, 209, 224);
+	display:block;
+    position: absolute;
+	top: 210px;
+	left: 410px;
+
+  }
 
 
 /* --- Alinha Calc -- */

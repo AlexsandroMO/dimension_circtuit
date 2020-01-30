@@ -66,7 +66,7 @@
 
                 <form method="GET" id="search-form">
                     <span><input class="form-control" type="search" id="search" name="search" placeholder="Localizar Circuito" value="{{request.GET.search}}">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search-btn">Pesquisar</button></span>
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search-btn" onclick="funcao_alerta()" value="Exibir Alert">Pesquisar</button></span>
                 </form>
   
           {% endif %}
