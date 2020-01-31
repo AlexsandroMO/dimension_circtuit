@@ -15,7 +15,7 @@ from django import db
 @login_required
 def home(request):
     #db.reset_queries()
-    project_name = RProject.objects.all()
+    project_name = RProject.objects.all().filter(user=request.user)
 
     return render(request, 'cable/home.html', {'project_name': project_name})
 
@@ -23,9 +23,11 @@ def home(request):
 @login_required
 def taskList(request, id):
 
+    #tasks_list = Task.objects.all().order_by('-type_task').filter(user=request.user)
+
     read_project = get_object_or_404(RProject, pk=id)
     
-    task = ResidencDimens.objects.filter(r_project_id=read_project).order_by('-r_local')
+    task = ResidencDimens.objects.filter(r_project_id=read_project, user=request.user).order_by('-r_local')
     project_name = RProject.objects.all()
 
     return render(request, 'cable/lista-circuitos.html', {'task': task, 'project_name': project_name,'read_project': read_project})
@@ -68,6 +70,8 @@ def newTask(request):
             task.r_appl_circ_break = djj
             #--------------------------------------------------
 
+            task.user = request.user
+
             task.save()
 
             #--------------------------------------------------
@@ -91,8 +95,12 @@ def editTask(request, id):
 
     task = get_object_or_404(ResidencDimens, pk=id)
     form = ResidencDimensForm(instance=task)
-    project_name = RProject.objects.all()
 
+
+    project_name = RProject.objects.all().filter(user=request.user)
+
+
+    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',project_name)
     
     if request.method == 'POST':
         form = ResidencDimensForm(request.POST, instance=task)
@@ -119,6 +127,16 @@ def editTask(request, id):
             djj = main.table_disj(task.r_total_power_va, int(tension))
             task.r_appl_circ_break = djj
             #--------------------------------------------------
+
+            id_name = main.read_sql_proj_id(task.r_project)
+            id_name = id_name['id'][0]
+
+            read_project = get_object_or_404(RProject, pk=id_name)
+
+            task.user = request.user
+
+            task.r_project = read_project
+
             task.save()
 
             #--------------------------------------------------
@@ -162,11 +180,18 @@ def deleteTask(request, id):
 @login_required
 def newProject(request):
 
+    user = request.user
+    ss = main.read_sql_user_name(user)
+    id_user = ss.username[0]
+
     if request.method == 'POST':
         form = RProjectForm(request.POST)
+        task = form.save(commit=False)
 
         if form.is_valid():
             project = form.save(commit=False)
+
+            task.user = request.user 
             
             project.save()
 

@@ -18,6 +18,7 @@ class RTension(models.Model):
 
 
 class RProject(models.Model):
+    user = models.ForeignKey(get_user_model(),on_delete=models.CASCADE)
     r_project = models.CharField(verbose_name='Nome do Projeto', max_length=100)
     r_description = models.TextField(verbose_name='Descrição do Projeto', blank=True, null=False)
     r_create_project = models.DateTimeField(auto_now_add=True)
@@ -28,7 +29,9 @@ class RProject(models.Model):
 
 
 class ResidencDimens(models.Model):
+    user = models.ForeignKey(get_user_model(),on_delete=models.CASCADE)
     r_project = models.ForeignKey(RProject, verbose_name='Nome do Projeto', on_delete=models.CASCADE)
+    #r_project = models.CharField(verbose_name='Nome do Projeto',max_length=50)
     r_local = models.CharField(verbose_name='Local da Instalação', max_length=50)
     r_type_circuit = models.ForeignKey(RTypeCircuit, verbose_name='Tipo de Instalação', on_delete=models.CASCADE)
     r_tension = models.ForeignKey(RTension, verbose_name='Tensão (VA)', on_delete=models.CASCADE)

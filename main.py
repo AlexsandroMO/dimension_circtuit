@@ -4,6 +4,46 @@ import pandasql as ps
 import sqlite3
 
 
+def read_sql_user_name(user):
+	conn = sqlite3.connect('db.sqlite3')
+	sql_datas = f"""
+				SELECT username FROM auth_user
+                where username = '{user}';
+    """
+
+	read_db = pd.read_sql_query(sql_datas, conn)
+	conn.close()
+	
+	return read_db
+
+def read_sql_proj_id(name):
+	conn = sqlite3.connect('db.sqlite3')
+	sql_datas = f"""
+				SELECT id FROM cable_rproject
+        WHERE r_project = '{name}';
+
+	"""
+
+	read_db = pd.read_sql_query(sql_datas, conn)
+	conn.close()
+	
+	return read_db
+    
+
+def read_sql_proj_name(id_name):
+	conn = sqlite3.connect('db.sqlite3')
+	sql_datas = f"""
+				SELECT r_project_id FROM cable_residencdimens
+        WHERE r_project_id = {id_name};
+
+	"""
+
+	read_db = pd.read_sql_query(sql_datas, conn)
+	conn.close()
+	
+	return read_db
+
+
 def read_sql_queda(queda):
 
 	conn = sqlite3.connect('db.sqlite3')
