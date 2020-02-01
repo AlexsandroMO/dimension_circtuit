@@ -28,7 +28,7 @@ def taskList(request, id):
     read_project = get_object_or_404(RProject, pk=id)
     
     task = ResidencDimens.objects.filter(r_project_id=read_project, user=request.user).order_by('-r_local')
-    project_name = RProject.objects.all()
+    project_name = RProject.objects.all().filter(user=request.user)
 
     return render(request, 'cable/lista-circuitos.html', {'task': task, 'project_name': project_name,'read_project': read_project})
 
@@ -36,12 +36,24 @@ def taskList(request, id):
 @login_required
 def newTask(request):
 
-    project_name = RProject.objects.all()
+    project_name = RProject.objects.all().filter(user=request.user)
+    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',project_name[0])
+    
+    #task = ResidencDimens.objects.filter(user=request.user)
+    #print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',task)
 
+    '''
+    task = get_object_or_404(ResidencDimens, pk=id)
+    task = ResidencDimens.objects.filter(user=request.user)
+    form = ResidencDimensForm(instance=task)
+    '''
     if request.method == 'POST':
         form = ResidencDimensForm(request.POST)
+        #task = ResidencDimens.objects.filter(user=request.user)
+        #task = ResidencDimens.objects.filter(user=request.user)
+        #print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',form)
 
-        task = form.save(commit=False)
+        #form = ResidencDimensForm(instance=task)
 
         if form.is_valid():
 
@@ -70,6 +82,12 @@ def newTask(request):
             task.r_appl_circ_break = djj
             #--------------------------------------------------
 
+            #id_name = main.read_sql_proj_id(task.r_project)
+            #id_name = id_name['id'][0]
+
+            #read_project = get_object_or_404(RProject, pk=id_name)
+            #task.r_project = project_name[0]
+
             task.user = request.user
 
             task.save()
@@ -96,12 +114,8 @@ def editTask(request, id):
     task = get_object_or_404(ResidencDimens, pk=id)
     form = ResidencDimensForm(instance=task)
 
-
     project_name = RProject.objects.all().filter(user=request.user)
 
-
-    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',project_name)
-    
     if request.method == 'POST':
         form = ResidencDimensForm(request.POST, instance=task)
 
@@ -132,10 +146,9 @@ def editTask(request, id):
             id_name = id_name['id'][0]
 
             read_project = get_object_or_404(RProject, pk=id_name)
+            task.r_project = read_project
 
             task.user = request.user
-
-            task.r_project = read_project
 
             task.save()
 
